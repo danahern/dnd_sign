@@ -1,0 +1,21 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/home/danahern/code/dnd_sign/esp-idf/components/bootloader/subproject",
+    "build_dir":          "/home/danahern/code/dnd_sign/build/bootloader",
+    "config_file":        "/home/danahern/code/dnd_sign/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.4-dev-2487-g8131d6f46",
+    "target":             "esp32",
+    "rev":                "0",
+    "phy_data_partition": "",
+    "monitor_baud" :      "115200",
+    "monitor_toolprefix": "xtensa-esp32-elf-",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/home/danahern/code/dnd_sign/esp-idf/components/efuse/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/esp32/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/esp_common/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/esp_hw_support/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/esp_system/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/freertos/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/hal/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/log/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/newlib/Kconfig;/home/danahern/code/dnd_sign/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/home/danahern/code/dnd_sign/esp-idf/components/bootloader/Kconfig.projbuild;/home/danahern/code/dnd_sign/esp-idf/components/esp_rom/Kconfig.projbuild;/home/danahern/code/dnd_sign/esp-idf/components/esptool_py/Kconfig.projbuild;/home/danahern/code/dnd_sign/esp-idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_hw_support", "esp_rom", "esp_system", "esptool_py", "freertos", "hal", "log", "main", "micro-ecc", "newlib", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/home/danahern/code/dnd_sign/esp-idf/components/bootloader", "/home/danahern/code/dnd_sign/esp-idf/components/bootloader_support", "/home/danahern/code/dnd_sign/esp-idf/components/efuse", "/home/danahern/code/dnd_sign/esp-idf/components/esp32", "/home/danahern/code/dnd_sign/esp-idf/components/esp_common", "/home/danahern/code/dnd_sign/esp-idf/components/esp_hw_support", "/home/danahern/code/dnd_sign/esp-idf/components/esp_rom", "/home/danahern/code/dnd_sign/esp-idf/components/esp_system", "/home/danahern/code/dnd_sign/esp-idf/components/esptool_py", "/home/danahern/code/dnd_sign/esp-idf/components/freertos", "/home/danahern/code/dnd_sign/esp-idf/components/hal", "/home/danahern/code/dnd_sign/esp-idf/components/log", "/home/danahern/code/dnd_sign/esp-idf/components/bootloader/subproject/main", "/home/danahern/code/dnd_sign/esp-idf/components/bootloader/subproject/components/micro-ecc", "/home/danahern/code/dnd_sign/esp-idf/components/newlib", "/home/danahern/code/dnd_sign/esp-idf/components/partition_table", "/home/danahern/code/dnd_sign/esp-idf/components/soc", "/home/danahern/code/dnd_sign/esp-idf/components/spi_flash", "/home/danahern/code/dnd_sign/esp-idf/components/xtensa", "" ]
+}
