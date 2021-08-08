@@ -1,6 +1,6 @@
-[submodule "aws-iot-device-sdk-embedded-C"]
-	path = aws-iot-device-sdk-embedded-C
-	url = git@github.com:aws/aws-iot-device-sdk-embedded-C.git
 [submodule "esp-idf"]
 	path = esp-idf
 	url = git@github.com:espressif/esp-idf.git
+[submodule "components/esp-aws-iot"]
+	path = components/esp-aws-iot
+	url = git@github.com:espressif/esp-aws-iot.git
