@@ -36,6 +36,7 @@
 #include "aws_iot_version.h"
 #include "aws_iot_mqtt_client_interface.h"
 
+#include "da_screen.h"
 
 void app_main(void)
 {
@@ -46,6 +47,9 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK( err );
+
+    // Initialize Screen
+    da_screen_init();
     
     printf("Hello world!\n");
 
