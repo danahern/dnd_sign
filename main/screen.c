@@ -20,7 +20,7 @@
 #include "esp_system.h"
 #include "driver/gpio.h"
 
-#include "da_screen.h"
+#include "screen.h"
 
 /* Littlevgl specific */
 #ifdef LV_LVGL_H_INCLUDE_SIMPLE
@@ -48,12 +48,12 @@ static void create_demo_application(void);
 /**********************
  *   APPLICATION MAIN
  **********************/
-void da_screen_init() {
+void screen_init() {
 
     /* If you want to use a task to create the graphic, you NEED to create a Pinned task
      * Otherwise there can be problem such as memory corruption and so on.
      * NOTE: When not using Wi-Fi nor Bluetooth you can pin the guiTask to core 0 */
-    xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
+    xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 0);
 }
 
 /* Creates a semaphore to handle concurrent call to lvgl stuff
@@ -161,18 +161,59 @@ static void create_demo_application(void)
 
     /* use a pretty small demo for monochrome displays */
     /* Get the current screen  */
-    lv_obj_t * scr = lv_disp_get_scr_act(NULL);
+    // lv_obj_t * scr = lv_disp_get_scr_act(NULL);
 
-    /*Create a Label on the currently active screen*/
-    lv_obj_t * label1 =  lv_label_create(scr, NULL);
+    // /*Create a Label on the currently active screen*/
+    // lv_obj_t * label1 =  lv_label_create(scr, NULL);
 
-    /*Modify the Label's text*/
-    lv_label_set_text(label1, "Hello\nworld");
+    // /*Modify the Label's text*/
+    // lv_label_set_text(label1, "Hello\nworld");
 
-    /* Align the Label to the center
-     * NULL means align on parent (which is the screen now)
-     * 0, 0 at the end means an x, y offset after alignment*/
-    lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 0, 0);
+    // /* Align the Label to the center
+    //  * NULL means align on parent (which is the screen now)
+    //  * 0, 0 at the end means an x, y offset after alignment*/
+    // lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 100, 100);
+
+    // lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     /*Add a button the current screen*/
+    // lv_obj_set_pos(btn, 10, 10);                            /*Set its position*/
+    // lv_obj_set_size(btn, 120, 50);                          /*Set its size*/
+    // // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
+
+    // lv_obj_t * label = lv_label_create(btn, NULL);          /*Add a label to the button*/
+    // lv_label_set_text(label, "Button");                     /*Set the labels text*/
+
+
+    tv = lv_tabview_create(lv_scr_act(), NULL);
+#if LV_USE_THEME_MATERIAL
+    if(LV_THEME_DEFAULT_INIT == lv_theme_material_init) {
+        lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
+        if(disp_size >= LV_DISP_SIZE_MEDIUM) {
+            lv_obj_set_style_local_pad_left(tv, LV_TABVIEW_PART_TAB_BG, LV_STATE_DEFAULT, LV_HOR_RES / 2);
+            lv_obj_t * sw = lv_switch_create(lv_scr_act(), NULL);
+            if(lv_theme_get_flags() & LV_THEME_MATERIAL_FLAG_DARK)
+                lv_switch_on(sw, LV_ANIM_OFF);
+            lv_obj_set_event_cb(sw, color_chg_event_cb);
+            lv_obj_set_pos(sw, LV_DPX(10), LV_DPX(10));
+            lv_obj_set_style_local_value_str(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, "Dark");
+            lv_obj_set_style_local_value_align(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_ALIGN_OUT_RIGHT_MID);
+            lv_obj_set_style_local_value_ofs_x(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_DPI/35);
+        }
+    }
+#endif
+
+    t1 = lv_tabview_add_tab(tv, "Controls");
+    t2 = lv_tabview_add_tab(tv, "Visuals");
+    t3 = lv_tabview_add_tab(tv, "Selectors");
+
+
+    lv_style_init(&style_box);
+    lv_style_set_value_align(&style_box, LV_STATE_DEFAULT, LV_ALIGN_OUT_TOP_LEFT);
+    lv_style_set_value_ofs_y(&style_box, LV_STATE_DEFAULT, - LV_DPX(10));
+    lv_style_set_margin_top(&style_box, LV_STATE_DEFAULT, LV_DPX(30));
+
+    controls_create(t1);
+    visuals_create(t2);
+    selectors_create(t3);
 }
 
 static void lv_tick_task(void *arg) {

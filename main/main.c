@@ -36,7 +36,7 @@
 #include "aws_iot_version.h"
 #include "aws_iot_mqtt_client_interface.h"
 
-#include "da_screen.h"
+#include "screen.h"
 
 void app_main(void)
 {
@@ -49,7 +49,7 @@ void app_main(void)
     ESP_ERROR_CHECK( err );
 
     // Initialize Screen
-    da_screen_init();
+    screen_init();
     
     printf("Hello world!\n");
 
@@ -69,11 +69,11 @@ void app_main(void)
 
     printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
 
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
+    // for (int i = 10; i >= 0; i--) {
+    //     printf("Restarting in %d seconds...\n", i);
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // }
+    // printf("Restarting now.\n");
+    // fflush(stdout);
+    // esp_restart();
 }
