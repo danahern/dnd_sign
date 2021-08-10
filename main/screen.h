@@ -12,7 +12,10 @@ extern "C" {
 
 // Init Screen
 void screen_init();
-
+// Set screen to free
+void set_free(void);
+// Set screen to busy
+void set_busy(void);
 
 #ifdef __cplusplus
 extern }

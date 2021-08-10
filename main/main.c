@@ -37,6 +37,7 @@
 #include "aws_iot_mqtt_client_interface.h"
 
 #include "screen.h"
+#include "dnd_console.h"
 
 void app_main(void)
 {
@@ -50,6 +51,9 @@ void app_main(void)
 
     // Initialize Screen
     screen_init();
+
+    // Initialize Console
+    console_initialize();
     
     printf("Hello world!\n");
 
