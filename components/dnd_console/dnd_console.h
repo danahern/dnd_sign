@@ -11,7 +11,7 @@ extern "C" {
 #endif
 
 // Init Screen
-void console_initialize();
+void dnd_console_initialize();
 
 
 #ifdef __cplusplus

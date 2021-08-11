@@ -112,7 +112,7 @@ void register_list_tasks(void)
 
 
 
-void console_initialize(void)
+void dnd_console_initialize(void)
 {
     esp_console_repl_t *repl = NULL;
     esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();

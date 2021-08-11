@@ -1,24 +1,19 @@
-/* LVGL Example project
- *
- * Basic project to test LVGL on ESP32 based projects.
- *
- * This example code is in the Public Domain (or CC0 licensed, at your option.)
- *
- * Unless required by applicable law or agreed to in writing, this
- * software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied.
- */
+/* 
+    For displaying stuff on the screen
+*/
+
+/* Standard Includes */
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+/* FreeRTOS and ESP Includes */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_freertos_hooks.h"
 #include "freertos/semphr.h"
 #include "esp_system.h"
-#include "driver/gpio.h"
 
 #include "screen.h"
 
@@ -37,10 +32,7 @@
  *********************/
 #define TAG "screen"
 #define LV_TICK_PERIOD_MS 1
-
-/**********************
- *  STATIC VARIABLES
- **********************/
+#define GUI_TASK_STACK 4096 //8192
 
 /**********************
  *  STATIC PROTOTYPES
@@ -49,20 +41,69 @@ static void lv_tick_task(void *arg);
 static void guiTask(void *pvParameter);
 
 /**********************
- *   APPLICATION MAIN
+ *  MODULE VARIABLES
  **********************/
-void screen_init() {
-
-    /* If you want to use a task to create the graphic, you NEED to create a Pinned task
-     * Otherwise there can be problem such as memory corruption and so on.
-     * NOTE: When not using Wi-Fi nor Bluetooth you can pin the guiTask to core 0 */
-    xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
-}
-
 /* Creates a semaphore to handle concurrent call to lvgl stuff
  * If you wish to call *any* lvgl function from other threads/tasks
  * you should lock on the very same semaphore! */
 SemaphoreHandle_t xGuiSemaphore;
+
+/**********************
+ *   Public Functions
+ **********************/
+void dnd_screen_init() {
+
+    /* If you want to use a task to create the graphic, you NEED to create a Pinned task
+     * Otherwise there can be problem such as memory corruption and so on.
+     * NOTE: When not using Wi-Fi nor Bluetooth you can pin the guiTask to core 0 */
+    xTaskCreatePinnedToCore(guiTask, "gui", GUI_TASK_STACK, NULL, 0, NULL, 1);
+}
+
+void dnd_screen_set_free(void)
+{
+    /* use a pretty small demo for monochrome displays */
+    /* Get the current screen  */
+    lv_obj_t * scr = lv_disp_get_scr_act(NULL);
+
+    lv_obj_t * btn1 = lv_btn_create(scr, NULL);
+
+    // /*Create a Label on the currently active screen*/
+    lv_obj_t * label1 =  lv_label_create(btn1, NULL);
+
+    // /*Modify the Label's text*/
+    lv_label_set_text(label1, "Free");
+
+    // /* Align the Label to the center
+    //  * NULL means align on parent (which is the screen now)
+    //  * 0, 0 at the end means an x, y offset after alignment*/
+    lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, 0, 0);
+
+}
+
+void dnd_screen_set_busy(void)
+{
+    /* use a pretty small demo for monochrome displays */
+    /* Get the current screen  */
+    lv_obj_t * scr = lv_disp_get_scr_act(NULL);
+
+    lv_obj_t * btn1 = lv_btn_create(scr, NULL);
+
+    // /*Create a Label on the currently active screen*/
+    lv_obj_t * label1 =  lv_label_create(btn1, NULL);
+
+    // /*Modify the Label's text*/
+    lv_label_set_text(label1, "Busy");
+
+    // /* Align the Label to the center
+    //  * NULL means align on parent (which is the screen now)
+    //  * 0, 0 at the end means an x, y offset after alignment*/
+    lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, 0, 0);
+
+}
+
+/***********************
+ *   Private Functions
+ ***********************/
 
 static void guiTask(void *pvParameter) {
 
@@ -136,7 +177,7 @@ static void guiTask(void *pvParameter) {
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
 
     /* Create the demo application */
-    set_free();
+    dnd_screen_set_free();
 
     while (1) {
         /* Delay 1 tick (assumes FreeRTOS tick is 10ms */
@@ -155,48 +196,6 @@ static void guiTask(void *pvParameter) {
     free(buf2);
 #endif
     vTaskDelete(NULL);
-}
-
-void set_free(void)
-{
-    /* use a pretty small demo for monochrome displays */
-    /* Get the current screen  */
-    lv_obj_t * scr = lv_disp_get_scr_act(NULL);
-
-    lv_obj_t * btn1 = lv_btn_create(scr, NULL);
-
-    // /*Create a Label on the currently active screen*/
-    lv_obj_t * label1 =  lv_label_create(btn1, NULL);
-
-    // /*Modify the Label's text*/
-    lv_label_set_text(label1, "Free");
-
-    // /* Align the Label to the center
-    //  * NULL means align on parent (which is the screen now)
-    //  * 0, 0 at the end means an x, y offset after alignment*/
-    lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, 0, 0);
-
-}
-
-void set_busy(void)
-{
-    /* use a pretty small demo for monochrome displays */
-    /* Get the current screen  */
-    lv_obj_t * scr = lv_disp_get_scr_act(NULL);
-
-    lv_obj_t * btn1 = lv_btn_create(scr, NULL);
-
-    // /*Create a Label on the currently active screen*/
-    lv_obj_t * label1 =  lv_label_create(btn1, NULL);
-
-    // /*Modify the Label's text*/
-    lv_label_set_text(label1, "Busy");
-
-    // /* Align the Label to the center
-    //  * NULL means align on parent (which is the screen now)
-    //  * 0, 0 at the end means an x, y offset after alignment*/
-    lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, 0, 0);
-
 }
 
 static void lv_tick_task(void *arg) {

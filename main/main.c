@@ -20,24 +20,12 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 
-#include "freertos/event_groups.h"
-#include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event.h"
-#include "esp_log.h"
-#include "esp_vfs_fat.h"
-#include "driver/sdmmc_host.h"
-
 #include "nvs.h"
 #include "nvs_flash.h"
 
-#include "aws_iot_config.h"
-#include "aws_iot_log.h"
-#include "aws_iot_version.h"
-#include "aws_iot_mqtt_client_interface.h"
-
 #include "screen.h"
 #include "dnd_console.h"
+#include "dnd_aws.h"
 
 void app_main(void)
 {
@@ -50,10 +38,13 @@ void app_main(void)
     ESP_ERROR_CHECK( err );
 
     // Initialize Screen
-    screen_init();
+    dnd_screen_init();
 
     // Initialize Console
-    console_initialize();
+    dnd_console_initialize();
+
+    // Initialize AWS
+    dnd_aws_initialize();
     
     printf("Hello world!\n");
 

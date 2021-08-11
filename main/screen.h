@@ -11,11 +11,11 @@ extern "C" {
 #endif
 
 // Init Screen
-void screen_init();
+void dnd_screen_init();
 // Set screen to free
-void set_free(void);
+void dnd_screen_set_free(void);
 // Set screen to busy
-void set_busy(void);
+void dnd_screen_set_busy(void);
 
 #ifdef __cplusplus
 extern }
