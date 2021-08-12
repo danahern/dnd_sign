@@ -58,7 +58,7 @@ static void initialize_nvs(void)
 }
 
 
-/** Arguments used by 'join' function */
+/** Arguments used by 'list_task' function */
 static struct {
     // struct arg_int *timeout;
     // struct arg_str *ssid;
@@ -90,7 +90,7 @@ static int list_task(int argc, char **argv)
     return 0;
 }
 
-void register_list_tasks(void)
+static void register_list_tasks(void)
 {
     list_task_args.end = arg_end(2);
 
@@ -104,13 +104,6 @@ void register_list_tasks(void)
 
     ESP_ERROR_CHECK( esp_console_cmd_register(&list_task_cmd) );
 }
-
-
-
-
-
-
-
 
 void dnd_console_initialize(void)
 {

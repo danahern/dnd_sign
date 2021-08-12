@@ -31,8 +31,8 @@
  *      DEFINES
  *********************/
 #define TAG "DNDAWS"
-#define EXAMPLE_WIFI_SSID   CONFIG_WIFI_SSID
-#define EXAMPLE_WIFI_PASS   CONFIG_WIFI_PASSWORD
+#define EXAMPLE_WIFI_SSID   ""//CONFIG_WIFI_SSID
+#define EXAMPLE_WIFI_PASS   ""//CONFIG_WIFI_PASSWORD
 
 
 /**********************
