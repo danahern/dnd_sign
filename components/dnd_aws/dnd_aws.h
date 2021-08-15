@@ -10,9 +10,8 @@
 extern "C" {
 #endif
 
-// Init Screen
+// Init AWS
 void dnd_aws_initialize();
-
 
 #ifdef __cplusplus
 extern }

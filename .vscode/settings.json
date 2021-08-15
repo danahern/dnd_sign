@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "esp_wifi.h": "c"
+        "esp_wifi.h": "c",
+        "freertos.h": "c"
     }
 }
