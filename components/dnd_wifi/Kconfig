@@ -1,0 +1,8 @@
+menu "DND WIFI"
+    config DND_WIFI_DEVICE_NAME
+        string "Device name"
+        default ""
+        help
+            Device name to display during pairing and once the device
+            connects to wifi.
+endmenu

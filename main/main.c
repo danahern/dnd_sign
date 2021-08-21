@@ -24,7 +24,9 @@
 #include "nvs_flash.h"
 
 #include "screen.h"
+
 #include "dnd_console.h"
+#include "dnd_wifi.h"
 #include "dnd_aws.h"
 
 void app_main(void)
@@ -43,7 +45,10 @@ void app_main(void)
     // Initialize Console
     dnd_console_initialize();
 
-    // Initialize AWS
+    // Initialize Wifi
+    dnd_wifi_initialize();
+
+    // Initialize AWS (MUST init wifi first)
     dnd_aws_initialize();
     
     printf("Hello world!\n");
